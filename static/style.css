@@ -1,138 +1,102 @@
 @font-face {
-  font-family: "Fira Code";
+  font-family: "Fira Mono";
   font-display: block;
-  src: url("/static/font.woff2") format('woff');
+  src: url("/static/font.woff2") format('woff2');
 }
 
 html {
-	scrollbar-gutter: stable both-edges;
+  width: 100vw;
+  height: 100%;
+  overflow-x: hidden;
 }
 
-html, body {
-	height: 100%;
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-		--bg: #efefef;
-		--fg: #1f1f1f;
-		--hg: #dfdfdf
-  }
+:root {
+  --bg: #efefef;
+  --fg: #0f0f0f;
+  --hg: #dfdfdf;
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-		--bg: #1f1f1f;
-		--fg: #efefef;
-		--hg: #3f3f3f
+  :root {
+    --bg: #0f0f0f;
+    --fg: #efefef;
+    --hg: #1f1f1f;
   }
 }
 
-body[data-theme=light] {
-		--bg: #efefef;
-		--fg: #1f1f1f;
-		--hg: #dfdfdf
-}
-
-body[data-theme=dark] {
-		--bg: #1f1f1f;
-		--fg: #efefef;
-		--hg: #3f3f3f
-}
-
 body {
-	background: var(--bg);
-	color: var(--fg);
-  font-family: "Fira Code", sans;
+  height: 100%;
+  font-family: "Fira Mono";
+  background: var(--bg);
+  color: var(--fg);
   line-height: 1.5;
-	max-width: 45rem;
-	margin: 0 auto;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-header {
-	display: flex;
-	padding: 1rem 1rem 0;
-}
-
-main {
-	padding: 0 1rem
-}
-
-footer {
-	margin-top: auto;
-	padding: 1rem 0;
-	text-align: center
-}
-
-
-main img {
-	width: 100%
-}
-
-h1, h2, h3, h4, h5, h6 {
-	line-height: 1.2
-}
-
-time {
-	color: #7f7f7f
+h1, h2, h3 {
+  line-height: 1.2;
 }
 
 a {
-	color: #1f7fef;
+  color: #0f7fef
 }
 
-.m-0 {
-	margin: 0
+.current {
+  color: var(--fg)
 }
 
-
-.my-1 {
-	margin-top: 1rem;
-	margin-bottom: 1rem
+header {
+  padding: 1rem;
+  background: var(--hg);
 }
 
-.mx-1 {
-	margin-left: 1rem;
-	margin-right: 1rem
+main {
+  padding: 0 1rem;
 }
 
-.my-auto {
-	margin-top: auto;
-	margin-bottom: auto
+footer {
+  margin-top: auto;
+  padding: 1rem;
 }
 
-.nowrap {
-	white-space: nowrap
-}
-
-pre {
-	padding: .5rem 1rem;
-	background: var(--hg);
-	margin: 0;
-	overflow-x: auto
-}
-
-code, button {
-	font-family: "Fira Code", sans;
-}
-
-#theme-toggle {
-	border: 0;
-	text-decoration: underline;
-	background: var(--fg);
-	color: var(--bg);
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
+.container {
+  max-width: 50rem;
+  margin: 0 auto
 }
 
 .text-align-right {
-	text-align: right
+  text-align: right
 }
 
-blockquote {
-	margin: 2rem 0 
+pre {
+	padding: 1rem;
+	background: var(--hg);
+	margin: 0;
+	overflow-x: auto;
+}
+
+code {
+  font-family: "Fira Mono"
+}
+
+.nowrap {
+  white-space: nowrap
+}
+
+img {
+  width: 100%
+}
+
+time {
+  color: #7f7f7f
+}
+
+.m-0 {
+  margin: 0
+}
+
+.my-1 {
+  margin: 1rem 0
 }

@@ -1,29 +1,53 @@
-<h2>Android app development without Android Studio</h2>
-<time>2022-09-15</time>
-<p>
-This artice is written for those who cannot or do not want to use <span class="nowrap">Android Studio</span>.
-</p>
-<h3>1. Install dependecies</h3>
-<ul>
-    <li>jdk21-openjdk</li>
-    <li>gradle 8.10.1-1</li>
-    <li>android-build-tools r34.0.0-2</li>
-    <li>android-cmdline-tools 13.0-3</li>
-    <li>android-platform-tools 35.0.1-1</li>
-    <li>android-platforms 35_r01-1</li>
-</ul>
-<p>Arch Linux example</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/style.css">
+		<link rel="icon" type="image/svg" href="/static/logo.svg">
+    <title>dayrain.uk - Notes</title>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <strong>dayrain.uk</strong> - 
+        <a href="/index.html">Home</a>
+        &middot;
+        <a href="/library.html">Library</a>
+        &middot;
+        <a class="current" href="/notes.html">Notes</a>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <h2>Android app development without Android Studio</h2>
+        <time>2024-09-15</time>
+        <p>
+          This note is written for those who cannot or do not want to use <span class="nowrap">Android Studio</span>.
+        </p>
+        <h3>1. Install dependecies</h3>
+        <ul>
+            <li>jdk21-openjdk</li>
+            <li>gradle 8.10.1-1</li>
+            <li>android-build-tools r34.0.0-2</li>
+            <li>android-cmdline-tools 13.0-3</li>
+            <li>android-platform-tools 35.0.1-1</li>
+            <li>android-platforms 35_r01-1</li>
+        </ul>
+        <p>Arch Linux example</p>
+
 <pre><code>sudo pacman -S jdk21-opendjk gradle
 mkdir -p ~/.aur
 cd ~/.aur
-for i in sdk-build-tools sdk-platform-tools sdk-cmdline-tools-latest platform; do
+for i in sdk-build-tools sdk-platform-tools sdk-cmdline-tools-latest platform;
+do
 git clone https://aur.archlinux.org/android-$i.git
 cd android-$i
 makepkg -sric
-done
-</pre></code>
-<h3>2. Initialize project</h3>
-<pre><code>mkdir alpha
+done</pre></code>
+
+        <h3>2. Initialize project</h3>
+        <pre><code>mkdir alpha
 cd alpha
 gradle init
 
@@ -60,13 +84,10 @@ Enter selection (default: Kotlin) [1..2]
 Select test framework:
   1: kotlin.test
   2: JUnit Jupiter
-Enter selection (default: kotlin.test) [1..2]
-
-Generate build using new APIs and behavior (some features may change in the next minor release)? (default: no) [yes, no]
-</code></pre>
-<h3>3. Configure build</h3>
-<p>settings.gradle.kts</p>
-<pre><code>pluginManagement {
+Enter selection (default: kotlin.test) [1..2]</code></pre>
+        <h3>3. Configure build</h3>
+        <p>settings.gradle.kts</p>
+        <pre><code>pluginManagement {
     repositories {
         gradlePluginPortal()
         google()
@@ -83,16 +104,16 @@ dependencyResolutionManagement {
 rootProject.name = "alpha"
 include(":app")</code></pre>
 
-<p>build.gradle.kts</p>
+        <p>build.gradle.kts</p>
 
 <pre><code>plugins {
     id("com.android.application") version "8.6.0" apply false
     id("com.android.library") version "8.6.0" apply false
     id("org.jetbrains.kotlin.android") version "2.0.20" apply false
-}
-</code></pre>
+}</code></pre>
 
-<p>app/build.gradle.kts</p>
+        <p>app/build.gradle.kts</p>
+
 <pre><code>plugins {
     id("croid.application")
     id("org.jetbrains.kotlin.android")
@@ -115,8 +136,8 @@ android {
     }
 }</code></pre>
 
-<h3>4. Write source code</h3>
-<p>app/src/main/kotlin/MainActivity.kt</p>
+        <h3>4. Write source code</h3>
+        <p>app/src/main/kotlin/MainActivity.kt</p>
 
 <pre><code>package com.d4yr41n.alpha;
 import android.app.Activity;
@@ -132,7 +153,7 @@ class MainActivity : Activity() {
     }
 }</code></pre>
 
-<p>app/src/main/AndroidManifest.xml</p>
+        <p>app/src/main/AndroidManifest.xml</p>
 
 <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -147,8 +168,13 @@ class MainActivity : Activity() {
     &lt;/application&gt;
 &lt;/manifest&gt;</code></pre>
 
-<h3>5. Connect your device via <a href="https://developer.android.com/tools/adb">adb</a> and install the app.</h3>
-<code><pre>
-adb connect 192.168.0.100:12345
+        <h3>5. Connect your device via <a href="https://developer.android.com/tools/adb">adb</a> and install the app.</h3>
+<pre><code>adb connect 192.168.0.100:12345
 ./gradlew installDebug
 </code></pre>
+      </div>
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>
