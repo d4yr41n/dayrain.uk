@@ -20,17 +20,16 @@
     </header>
     <main>
       <div class="container">
-
-<h2>Bootstraping Alpine Linux</h2>
+        <h2>Bootstrapping Alpine Linux</h2>
 <time>2024-10-03</time>
 
 <h3>1. Pre-install</h3>
-<ul>
+<ol>
   <li>Boot from existing OS or LiveCD</li>
-  <li>Configure the network (use <a>iwd</a> or <a>wpa_supplicant</a>)</li>
-  <li>Partition your disks and format the partitions (use <a>fdisk</a> and <a>mkfs</a>)</li>
+  <li>Configure the network (<a>iwd</a> or <a>wpa_supplicant</a>)</li>
+  <li>Partition your disks and format the partitions (<a>fdisk</a> and <a>mkfs</a>)</li>
   <li>Mount the partitions to /mnt (root) and /mnt/boot (ESP or boot)</li>
-</ul>
+</ol>
 <p>Example:</p>
 <pre><code>wpa_passphrase &lt;SSID&gt; &lt;password&gt; &gt; /etc/wpa_supplicant/wpa_supplicant.conf
 rc-service wpa_supplicant start
@@ -101,6 +100,14 @@ linux /vmlinuz-lts
 initrd /initramfs-lts
 options rw root=/dev/nvme0n1p2 rootfstype=btrfs quiet
 </code></pre>
+<h3>Resources</h3>
+<ul>
+  <li>
+    <a href="https://wiki.alpinelinux.org/wiki/Bootstrapping_Alpine_Linux">
+      Alpine Linux Wiki - Bootstrapping Alpine Linux
+    </a>
+  </li>
+</ul>
       </div>
     </main>
     <footer>

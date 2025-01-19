@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/style.css">
+		<link rel="icon" type="image/svg" href="/static/logo.svg">
+    <title>dayrain.uk - Notes</title>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <strong>dayrain.uk</strong> - 
+        <a href="/index.html">Home</a>
+        &middot;
+        <a href="/library.html">Library</a>
+        &middot;
+        <a class="current" href="/notes.html">Notes</a>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <h2>Self-hosting on Termux via Cloudflare Tunnel</h2>
+        <time>2025-01-19</time>
+        <h3>1. Assets</h3>
+        <ul>
+          <li>Android device with Termux</li>
+          <li>Cloudflare domain name</li>
+          <li>Local web application</li>
+        </ul>
+        <p>Example</p>
+<pre><code>DOMAIN=domain.com
+TUNNEL=main
+URL=http://localhost:1024
+CONFIG=~/.cloudflared/config-${TUNNEL}.yml</code></pre>
+
+<h3>2. Create a tunnel</h3>
+
+<pre><code>pkg install cloudflared
+cloudflared tunnel login
+cloudflared tunnel create ${TUNNEL}
+ID=$(cloudflared tunnel list | awk -v NAME=${TUNNEL} '$2 == NAME { print $1 }')</code></pre>
+
+<h3>3. Create a config</h3>
+
+<pre><code>cat << EOF > ${CONFIG}
+url: http://localhost:1024
+tunnel: ${ID}
+credentials-file: /data/data/com.termux/files/home/.cloudflared/${ID}.json
+EOF</code></pre>
+
+<h3>4. Start routing traffic</h3>
+<pre><code>cloudflared tunnel route dns ${TUNNEL} ${DOMAIN}</code></pre>
+
+<h3>5. Run the tunnel</h3>
+<pre><code>cloudflared tunnel --config ${CONFIG} run ${TUNNEL}</code></pre>
+
+<h3>6. Runit service (optional)</h3>
+<pre><code>pkg install termux-services
+LOG=${PREFIX}/var/service/cloudflared/log
+mkdir -p ${LOG}
+ln -sf ${PREFIX}/share/termux-services/svlogger ${LOG}/run
+RUN=${PREFIX}/var/service/cloudflared/run
+cat << EOF > ${RUN}
+#!/bin/sh
+exec cloudflared tunnel --config ${CONFIG} run ${TUNNEL}
+EOF
+chmod +x ${RUN}
+sv-enable cloudflared
+sv up cloudflared
+</code></pre>
+
+<h3>Resources</h3>
+<ul>
+  <li>
+    <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-local-tunnel">
+      Cloudflare Docs - Create a locally-managed tunnel (CLI)
+    </a>
+  </li>
+  <li>
+    <a href="https://wiki.termux.com/wiki/Termux-services">
+      Termux Wiki - Termux-services
+    </a>
+  </li>
+</ul>
+      </div>
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>
