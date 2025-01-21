@@ -22,11 +22,12 @@
       <div class="container">
         <h2>Self-hosting on Termux via Cloudflare Tunnel</h2>
         <time>2025-01-19</time>
+        <p>A suitable solution for those who have an unused Android device and no white IP.</p>
         <h3>1. Assets</h3>
         <ul>
           <li>Android device with Termux</li>
           <li>Cloudflare domain name</li>
-          <li>Local web application</li>
+          <li>Local web application (e.g. http://localhost:1024)</li>
         </ul>
         <p>Example</p>
 <pre><code>DOMAIN=domain.com
@@ -44,7 +45,7 @@ ID=$(cloudflared tunnel list | awk -v NAME=${TUNNEL} '$2 == NAME { print $1 }')<
 <h3>3. Create a config</h3>
 
 <pre><code>cat << EOF > ${CONFIG}
-url: http://localhost:1024
+url: ${URL}
 tunnel: ${ID}
 credentials-file: /data/data/com.termux/files/home/.cloudflared/${ID}.json
 EOF</code></pre>
