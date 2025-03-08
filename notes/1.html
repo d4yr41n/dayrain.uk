@@ -43,7 +43,7 @@ mount --mkdir /dev/nvme0n1p1 /mnt/boot
 <h3>2. Install base system</h3>
 <pre><code>wget https://gitlab.alpinelinux.org/api/v4/projects/5/packages/generic/v2.14.4/x86_64/apk.static
 chmod +x apk.static
-./sbin/apk.static --arch $(arch) -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/ -U --allow-untrusted --root /mnt --initdb add alpine-base
+./apk.static --arch $(arch) -X http://dl-cdn.alpinelinux.org/alpine/edge/main/ -U --allow-untrusted --root /mnt --initdb add alpine-base
 </code></pre>
 
 <h3>3. Chroot</h3>
@@ -60,12 +60,13 @@ chroot /mnt /bin/sh
 <p>/etc/apk/repositories</p>
 <pre><code>http://dl-cdn.alpinelinux.org/alpine/edge/main
 http://dl-cdn.alpinelinux.org/alpine/edge/community
+http://dl-cdn.alpinelinux.org/alpine/edge/testing
 </code></pre>
 <br>
 <pre><code>apk update</code></pre>
 
 <h3>5. Kernel and services</h3>
-<pre><code>apk add linux-lts udev
+<pre><code>apk add linux-edge udev
 rc-update add udev sysinit
 rc-update add udev-trigger sysinit
 rc-update add udev-settle sysinit
@@ -96,8 +97,8 @@ apk add btrfs-progs
 <h3>6. Add entry to bootloader</h3>
 <p>/boot/loader/entries/alpine.conf (example)</p>
 <pre><code>title Alpine Linux
-linux /vmlinuz-lts
-initrd /initramfs-lts
+linux /vmlinuz-edge
+initrd /initramfs-edge
 options rw root=/dev/nvme0n1p2 rootfstype=btrfs quiet
 </code></pre>
 <h3>Resources</h3>
@@ -105,6 +106,11 @@ options rw root=/dev/nvme0n1p2 rootfstype=btrfs quiet
   <li>
     <a href="https://wiki.alpinelinux.org/wiki/Bootstrapping_Alpine_Linux">
       Alpine Linux Wiki - Bootstrapping Alpine Linux
+    </a>
+  </li>
+  <li>
+    <a href="https://https://wiki.gentoo.org">
+        Gentoo Wiki
     </a>
   </li>
 </ul>
